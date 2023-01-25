@@ -1,0 +1,14 @@
+#root {
+	display: flex;
+	flex-direction: column;
+	max-width: 1500px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.App {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}

@@ -1,0 +1,69 @@
+.label-container {
+	padding: 0;
+	max-width: 100%;
+	overflow: hidden;
+	text-align: left;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.description-container {
+	display: -webkit-box;
+	max-width: 100%;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.synonym-tag {
+	max-width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.links-list {
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+
+	button {
+		padding: 0;
+	}
+}
+
+.links-list:last-child {
+	align-items: end;
+}
+
+.expanded-row {
+	&-synonyms {
+		display: -webkit-box;
+
+		&-title {
+			margin-right: 0.5rem;
+		}
+
+		&-container {
+			display: flex;
+		}
+	}
+
+	&-card {
+		&-container {
+			display: flex;
+			justify-content: space-between;
+			gap: 1rem;
+		}
+
+		&-table {
+			.ant-spin-nested-loading {
+				.ant-spin-container {
+					.ant-table {
+						margin: 0 !important;
+					}
+				}
+			}
+		}
+	}
+}
