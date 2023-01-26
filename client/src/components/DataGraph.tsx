@@ -1,3 +1,4 @@
+import { Spin } from "antd";
 import React from "react";
 
 import VisGraph from "react-vis-graph-wrapper";
@@ -42,7 +43,14 @@ const options: any = {
 	height: "600px"
 };
 
-function DataGraph({ dataSource }) {
+function DataGraph({ dataSource, isLoading }) {
+	if (isLoading)
+		return (
+			<Spin tip="Loading..." size="large">
+				<div style={{ height: 600 }}></div>
+			</Spin>
+		);
+
 	dataSource.nodes = dataSource.nodes.map((node) => ({ id: node.iri, ...node }));
 	dataSource.edges = dataSource.edges.map((edge) => ({ from: edge.source, to: edge.target, label: "", ...edge }));
 

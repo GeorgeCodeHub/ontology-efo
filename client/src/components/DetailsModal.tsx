@@ -14,8 +14,6 @@ import DataGraph from "./DataGraph";
 function DetailsModal() {
 	const [currentPage, setCurrentPage] = useState(1);
 
-	const [messageApi, contextHolder] = message.useMessage();
-
 	const { selectedLink } = useSelector((state: any) => state.terms);
 
 	const dispatch = useDispatch();
@@ -23,7 +21,9 @@ function DetailsModal() {
 	const { isLoading, data } = useQuery({
 		queryKey: ["link", selectedLink, currentPage],
 		enabled: selectedLink.label !== "",
-		queryFn: () => getTermLinkData(selectedLink.url)
+		queryFn: () => getTermLinkData(selectedLink.url),
+		staleTime: 10 * (60 * 1000),
+		refetchOnWindowFocus: false
 	});
 
 	const onClose = useCallback(() => {
@@ -33,20 +33,6 @@ function DetailsModal() {
 	const handleTableChange = useCallback((pagination) => {
 		setCurrentPage(pagination.current);
 	}, []);
-
-	useEffect(() => {
-		if (isLoading) {
-			messageApi.open({
-				type: "loading",
-				content: "Loading in progress..",
-				duration: 0
-			});
-		} else {
-			messageApi.destroy;
-		}
-	}, [messageApi, isLoading]);
-
-	if (isLoading) return contextHolder;
 
 	const dataSource = {
 		terms: data?.data?._embedded?.terms,
@@ -63,7 +49,7 @@ function DetailsModal() {
 			width="85%"
 		>
 			{selectedLink.label === "Graph" ? (
-				<DataGraph dataSource={dataSource} />
+				<DataGraph dataSource={data?.data} isLoading={isLoading} />
 			) : (
 				<DataTable
 					dataSource={dataSource.terms}
